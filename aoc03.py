@@ -13,10 +13,10 @@ def q1(input: str) -> int:
 def extract_parts(input: str) -> List[str]:
     # Define the regex pattern to match 'mul(a, b)', 'do()', or 'don't()'
     pattern: str = r'mul\(\d+,\s*\d+\)|do\(\)|don\'t\(\)'
-    
+
     # Find all matches in the input string
     matches: List[str] = re.findall(pattern, input)
-    
+
     return matches  # Return the list of matched strings
 
 def q2(input: str) -> int:
@@ -31,7 +31,7 @@ def q2(input: str) -> int:
         elif item == "do()":
             collecting = True  # Resume collecting when 'do()' is encountered
             continue  # Skip adding 'do()' to the result
-        
+
         if collecting and item.startswith("mul"):
             result.append(item)  # Collect 'mul' elements if collecting is True
 
@@ -51,7 +51,7 @@ def main() -> None:
     raw_input: str = ""
     with open('inputs/input03.txt', 'r') as file:
         raw_input = file.read()  # Read the whole file content into 'input'
-    
+
     print("Parsed results from q1:", q1(raw_input))
     print("Parsed results from q2:", q2(raw_input))
 

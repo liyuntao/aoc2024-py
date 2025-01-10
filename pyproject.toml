@@ -10,3 +10,7 @@ dependencies = [
     "requests-mock>=1.12.1",
     "ruff>=0.8.6",
 ]
+
+[tool.ruff]
+lint.select = ["E", "F", "W"]
+lint.ignore = ["E501", "E712"]

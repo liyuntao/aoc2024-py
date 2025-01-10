@@ -10,7 +10,7 @@ def main():
 
     result1 = q1(first_column, second_column)
     result2 = q2(first_column, second_column)
-    
+
     print("Q1 - Result:", result1)
     print("Q2 - Result:", result2)
 
