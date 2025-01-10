@@ -18,6 +18,9 @@ def q1(first_column: List[int], second_column: List[int]) -> int:
     first_copy = first_column.copy()
     second_copy = second_column.copy()
 
+    first_copy.sort()
+    second_copy.sort()
+
     differences: List[int] = [abs(a - b) for a, b in zip(first_copy, second_copy)]
     return sum(differences)
 
