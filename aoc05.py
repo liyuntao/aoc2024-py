@@ -33,18 +33,22 @@ def main() -> None:
     print(result)
 
 
+def is_valid_order(single_list: list[int], relation_dict: dict[int, set[int]]) -> bool:
+    is_valid = True
+    for a, b in zip(single_list, single_list[1:]):
+        if a in relation_dict and b in relation_dict[a]:
+            is_valid = is_valid and True
+        else:
+            is_valid = is_valid and False
+            break
+    return is_valid
+
+
 def q1(relation_dict: dict[int, set[int]], input_lists: list[list[int]]) -> int:
     result: int = 0
     for single_list in input_lists:
-        is_valid = True
-        for a, b in zip(single_list, single_list[1:]):
-            if a in relation_dict and b in relation_dict[a]:
-                is_valid = is_valid and True
-            else:
-                is_valid = is_valid and False
-        if is_valid:
+        if is_valid_order(single_list, relation_dict):
             result += middle_of_list(single_list)
-
     return result
 
 
