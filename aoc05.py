@@ -1,3 +1,4 @@
+from functools import cmp_to_key
 from typing import Tuple
 
 
@@ -29,8 +30,11 @@ def main() -> None:
         content = file.read()
 
     relation_dict, input_lists = union_parse(content)
-    result = q1(relation_dict, input_lists)
-    print(result)
+
+    result1 = q1(relation_dict, input_lists)
+    print("Q1 - Result:", result1)
+    result2 = q2(relation_dict, input_lists)
+    print("Q2 - Result:", result2)
 
 
 def is_valid_order(single_list: list[int], relation_dict: dict[int, set[int]]) -> bool:
@@ -49,6 +53,23 @@ def q1(relation_dict: dict[int, set[int]], input_lists: list[list[int]]) -> int:
     for single_list in input_lists:
         if is_valid_order(single_list, relation_dict):
             result += middle_of_list(single_list)
+    return result
+
+
+def q2(relation_dict: dict[int, set[int]], input_lists: list[list[int]]) -> int:
+    def custom_comparator(x, y):
+        if x in relation_dict and y in relation_dict[x]:
+            return -1
+        elif y in relation_dict and x in relation_dict[y]:
+            return 1
+        else:
+            return 1
+
+    result: int = 0
+    for single_list in input_lists:
+        if not is_valid_order(single_list, relation_dict):
+            sorted_list = sorted(single_list, key=cmp_to_key(custom_comparator))
+            result += middle_of_list(sorted_list)
     return result
 
 

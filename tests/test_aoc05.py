@@ -1,7 +1,7 @@
-from aoc05 import union_parse, q1
+from aoc05 import union_parse, q1, q2
 
 
-def test_q1():
+def test_q1_q2():
     raw_input: str = """
 47|53
 97|13
@@ -37,3 +37,6 @@ def test_q1():
 
     result_q1 = q1(relation_dict, input_lists)
     assert result_q1 == 143, f"Expected 143, but got {result_q1}"
+
+    result_q2 = q2(relation_dict, input_lists)
+    assert result_q2 == 123, f"Expected 123, but got {result_q2}"
