@@ -48,15 +48,29 @@ def generate_all_possible_v1(count: int) -> list[list[str]]:
 
 
 def generate_all_possible_v2(count: int) -> list[list[str]]:
-    if count == 1:
-        return [["+"], ["*"], ["||"]]
-    else:
-        N_1 = generate_all_possible_v2(count - 1)
-        return (
-            [["+"] + x for x in N_1]
-            + [["*"] + x for x in N_1]
-            + [["||"] + x for x in N_1]
-        )
+    # Base case: if count is 0 or negative, return empty list
+    if count <= 0:
+        return []
+
+    # Initialize dp array with base case for count = 1
+    dp: list[list[list[str]]] = []
+    dp.append([["+"], ["*"], ["||"]])  # First element for count = 1
+
+    # Build up solutions for counts from 2 to target count
+    for i in range(1, count):
+        current_possibilities = []
+
+        # Use the previous result (dp[i-1]) to build current result
+        for prev_result in dp[i - 1]:
+            # Add each operator to the beginning of previous results
+            current_possibilities.extend(
+                [["+"] + prev_result, ["*"] + prev_result, ["||"] + prev_result]
+            )
+
+        dp.append(current_possibilities)
+
+    # Return the result for the target count
+    return dp[count - 1]
 
 
 def evaluate(item: Day7InputItem, expression: list[str]) -> int:
