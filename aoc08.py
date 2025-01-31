@@ -39,8 +39,25 @@ def permutation_2(
     return list(itertools.combinations(data, 2))
 
 
-def anti_nodes(d1: tuple[int, int], d2: tuple[int, int]) -> tuple[int, int]:
-    return (2 * d1[0] - d2[0], 2 * d1[1] - d2[1])
+def anti_nodes_q1(
+    d1: tuple[int, int], d2: tuple[int, int], guard_x: int, guard_y: int
+) -> list[tuple[int, int]]:
+    result = []
+    target_x = 2 * d1[0] - d2[0]
+    target_y = 2 * d1[1] - d2[1]
+    if target_x >= 0 and target_y >= 0 and target_x < guard_x and target_y < guard_y:
+        result.append((target_x, target_y))
+
+    target_x2 = 2 * d2[0] - d1[0]
+    target_y2 = 2 * d2[1] - d1[1]
+    if (
+        target_x2 >= 0
+        and target_y2 >= 0
+        and target_x2 < guard_x
+        and target_y2 < guard_y
+    ):
+        result.append((target_x2, target_y2))
+    return result
 
 
 def q1(area: Area) -> int:
@@ -48,21 +65,7 @@ def q1(area: Area) -> int:
     for key, value in area.grouped_value.items():
         if len(value) > 1:
             for d1, d2 in permutation_2(value):
-                anti_node = anti_nodes(d1, d2)
-                if (
-                    anti_node[0] >= 0
-                    and anti_node[1] >= 0
-                    and anti_node[0] < area.width
-                    and anti_node[1] < area.height
-                ):
-                    final_set.add(anti_node)
-                anti_node = anti_nodes(d2, d1)
-                if (
-                    anti_node[0] >= 0
-                    and anti_node[1] >= 0
-                    and anti_node[0] < area.width
-                    and anti_node[1] < area.height
-                ):
+                for anti_node in anti_nodes_q1(d1, d2, area.width, area.height):
                     final_set.add(anti_node)
 
     return len(final_set)
