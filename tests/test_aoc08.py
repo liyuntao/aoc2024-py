@@ -1,4 +1,4 @@
-from aoc08 import q1, parse_input_08
+from aoc08 import q1, q2, parse_input_08
 
 
 def test_q1():
@@ -18,3 +18,5 @@ def test_q1():
 """
     input = parse_input_08(raw_input)
     assert q1(input) == 14
+
+    assert q2(input) == 34
